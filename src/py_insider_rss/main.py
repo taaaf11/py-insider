@@ -3,7 +3,6 @@ from __future__ import annotations
 import sys
 import typing
 from argparse import ArgumentDefaultsHelpFormatter, ArgumentParser
-from datetime import datetime
 
 import feedparser
 from rich.console import Console
@@ -69,9 +68,8 @@ def main():
     entries = load_entries()
 
     if len(sys.argv) == 1:
-        table = print_entries_table(entries, options.paginate, options.styles)
-        console = Console()
-        console.print(table)
+        print_entries_table(entries, options.paginate, options.styles)
+        sys.exit(0)
 
     if options.number:
         c_entry_map = dict(enumerate(entries, start=1))
