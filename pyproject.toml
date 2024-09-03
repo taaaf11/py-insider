@@ -1,5 +1,5 @@
 [project]
-name = "python-insider-rss"
+name = "py-insider-rss"
 description = "Read python insider blog inside your terminal."
 version = "0.0.1"
 authors = [

@@ -9,8 +9,6 @@ from rich.table import Table
 from rich.text import Text
 
 if typing.TYPE_CHECKING:
-    from typing import Any
-
     from .types import Entry
 
 
