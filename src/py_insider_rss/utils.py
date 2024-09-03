@@ -1,11 +1,15 @@
 from __future__ import annotations
 
+import typing
 from rich.console import Console
 
-from .parts import make_info, make_summary
+from .parts import make_entries_table, make_info, make_summary
+
+if typing.TYPE_CHECKING:
+    from .types_ import Entry
 
 
-def print_entry(entry: dict, paging: bool, styles: bool) -> None:
+def print_entry(entry: Entry, paging: bool, styles: bool) -> None:
     """Utility function for printing blog entry on
     screen.
     """
