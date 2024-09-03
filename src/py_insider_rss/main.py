@@ -2,13 +2,13 @@ from __future__ import annotations
 
 import sys
 import typing
-from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter
+from argparse import ArgumentDefaultsHelpFormatter, ArgumentParser
 from datetime import datetime
 
 import feedparser
 from rich.console import Console
 
-from .utils import print_entry, print_entries_table
+from .utils import print_entries_table, print_entry
 
 if typing.TYPE_CHECKING:
     from argparse import Namespace
@@ -57,7 +57,7 @@ def parse_opts() -> Namespace:
         dest="styles",
         action="store_true",
         default=False,
-        help="Enable styles with paginator."
+        help="Enable styles with paginator.",
     )
 
     options = o_parser.parse_args()

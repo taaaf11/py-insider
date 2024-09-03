@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import typing
+
 from rich.console import Console
 
 from .parts import make_entries_table, make_info, make_summary
