@@ -5,6 +5,9 @@ version = "0.0.1"
 authors = [
   {name = "Muhammad Altaaf", email = "taafuuu@gmail.com"}
 ]
+classifiers = [
+  "Private :: Do not upload"
+]
 dependencies = [
   "feedparser",
   "markdownify",
