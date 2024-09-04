@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import sys
 import typing
-from argparse import ArgumentDefaultsHelpFormatter, ArgumentParser
+from argparse import ArgumentParser, SUPPRESS, ArgumentDefaultsHelpFormatter
 
 import feedparser
 
@@ -40,7 +40,7 @@ def parse_opts() -> Namespace:
         "-n",
         dest="number",
         metavar="NUMBER",
-        default=0,
+        default=SUPPRESS,
         type=int,
         help="Show an rss feed with number NUMBER. To see all numbers,"
         " run program without arguments.",
@@ -50,7 +50,7 @@ def parse_opts() -> Namespace:
         dest="latest",
         action="store_true",
         default=False,
-        help='Show the latest rss feed.',
+        help='Show the latest rss feed. Suppresses -n option.',
     )
     add_opt(
         "-p",
@@ -81,10 +81,18 @@ def main() -> None:
 
     if options.number ^ options.latest:
         c_entry_map = dict(enumerate(entries, start=1))
+        entry_keys = sorted(c_entry_map.keys())
+        entry_number: int
 
         if options.latest:
-            latest_entry_n = sorted(c_entry_map)[-1]
-            options.number = latest_entry_n
+            entry_number = entry_keys[-1]
+        else:
+            if options.number not in entry_keys:
+                print("Please enter valid entry number.\n"
+                      "To see all valid numbers, run "
+                      "program without arguments.")
+                sys.exit(1)
+            entry_number = options.number
 
         entry = c_entry_map.get(options.number)
         print_entry(entry, options.paginate, options.styles)
