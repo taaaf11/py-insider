@@ -28,8 +28,13 @@ def print_entry(entry: Entry, paging: bool, styles: bool) -> None:
         console.print(*elems)
 
 
-def print_entries_table(entries: list[Entry], paging: bool, styles: bool) -> None:
-    """Utility function for printing a table with blog entries, their last updated date."""
+def print_entries_table(
+    entries: list[Entry],
+    paging: bool,
+    styles: bool,
+) -> None:
+    """Utility function for printing a table with blog entries and
+    their last updated date."""
 
     entries_table = make_entries_table(entries)
 
