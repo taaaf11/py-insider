@@ -5,7 +5,6 @@ import typing
 from argparse import ArgumentDefaultsHelpFormatter, ArgumentParser
 
 import feedparser
-from rich.console import Console
 
 from .utils import print_entries_table, print_entry
 
@@ -63,7 +62,7 @@ def parse_opts() -> Namespace:
     return options
 
 
-def main():
+def main() -> None:
     options = parse_opts()
     entries = load_entries()
 

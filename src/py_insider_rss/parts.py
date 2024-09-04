@@ -23,14 +23,14 @@ def fmt_datetime(iso_datetime: str) -> str:
     return dt_local.strftime(format_)
 
 
-def make_title(entry: dict):
+def make_title(entry: dict) -> Text:
     """Make title info renderable from entry data."""
 
     title = Text.assemble(("Title: ", "bold"), entry["title"])
     return title
 
 
-def make_authors(entry: dict):
+def make_authors(entry: dict) -> Text:
     """Make author info renderable from entry data."""
 
     authors_text = Text.assemble(("Authors: ", "bold"))
@@ -46,7 +46,7 @@ def make_authors(entry: dict):
     return authors_text
 
 
-def make_last_updated(entry: dict):
+def make_last_updated(entry: dict) -> Text:
     """Make last update info renderable from entry data."""
 
     date_info = Text.assemble(
@@ -75,7 +75,7 @@ def make_entries_table(entries: list[Entry]) -> Table:
     return table
 
 
-def make_info(entry: dict):
+def make_info(entry: dict) -> Text:
     """Wrapper around different info making
     functions.
     """
