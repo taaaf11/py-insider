@@ -34,14 +34,23 @@ def parse_opts() -> Namespace:
         formatter_class=ArgumentDefaultsHelpFormatter,
     )
     add_opt = o_parser.add_argument
+    ln_group = o_parser.add_mutually_exclusive_group()
 
-    add_opt(
+    ln_group.add_argument(
         "-n",
         dest="number",
         metavar="NUMBER",
+        default=0,
         type=int,
         help="Show an rss feed with number NUMBER. To see all numbers,"
         " run program without arguments.",
+    )
+    ln_group.add_argument(
+        "-l",
+        dest="latest",
+        action="store_true",
+        default=False,
+        help='Show the latest rss feed.',
     )
     add_opt(
         "-p",
@@ -70,8 +79,13 @@ def main() -> None:
         print_entries_table(entries, options.paginate, options.styles)
         sys.exit(0)
 
-    if options.number:
+    if options.number ^ options.latest:
         c_entry_map = dict(enumerate(entries, start=1))
+
+        if options.latest:
+            latest_entry_n = sorted(c_entry_map)[-1]
+            options.number = latest_entry_n
+
         entry = c_entry_map.get(options.number)
         print_entry(entry, options.paginate, options.styles)
 
