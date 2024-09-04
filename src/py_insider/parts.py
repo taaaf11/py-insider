@@ -23,14 +23,14 @@ def fmt_datetime(iso_datetime: str) -> str:
     return dt_local.strftime(format_)
 
 
-def make_title(entry: dict) -> Text:
+def make_title(entry: Entry) -> Text:
     """Make title info renderable from entry data."""
 
     title = Text.assemble(("Title: ", "bold"), entry["title"])
     return title
 
 
-def make_authors(entry: dict) -> Text:
+def make_authors(entry: Entry) -> Text:
     """Make author info renderable from entry data."""
 
     authors_text = Text.assemble(("Authors: ", "bold"))
@@ -46,7 +46,7 @@ def make_authors(entry: dict) -> Text:
     return authors_text
 
 
-def make_last_updated(entry: dict) -> Text:
+def make_last_updated(entry: Entry) -> Text:
     """Make last update info renderable from entry data."""
 
     date_info = Text.assemble(
@@ -75,7 +75,7 @@ def make_entries_table(entries: list[Entry]) -> Table:
     return table
 
 
-def make_info(entry: dict) -> Text:
+def make_info(entry: Entry) -> Text:
     """Wrapper around different info making
     functions.
     """
@@ -89,7 +89,7 @@ def make_info(entry: dict) -> Text:
         title,
         newline,
         authors,
-        # newline,  make_authors adds newline after each author
+        # newline,  # make_authors adds newline after each author
         last_updated,
         newline,
     ]
@@ -102,7 +102,7 @@ def make_info(entry: dict) -> Text:
     return info_text
 
 
-def make_summary(entry: dict) -> Markdown:
+def make_summary(entry: Entry) -> Markdown:
     """Make summary renderable from entry data."""
 
     # summary is in html format
