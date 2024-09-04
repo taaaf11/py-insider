@@ -1,15 +1,15 @@
-# py-insider-rss
+# py-insider
 Read python insider blog inside your terminal.
 
 ## Usage
 - To get numbers of available blogs. (These will be used later), run the package without arguments.
 ```bash
-py-insider-rss
+py-insider
 ```
 
 - To view particular blog, use blog number.
 ```bash
-py-insider-rss -n <number>
+py-insider -n <number>
 ```
 
 - To enable pagination, use `-p` cli option with command.
