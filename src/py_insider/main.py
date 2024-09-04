@@ -6,7 +6,7 @@ from argparse import SUPPRESS, ArgumentParser
 
 import feedparser
 
-from .types_ import MyArgumentDefaultsHelpFormatter
+from .types_ import MyHelpFormatter
 from .utils import print_entries_table, print_entry
 
 if typing.TYPE_CHECKING:
@@ -32,7 +32,7 @@ def parse_opts() -> Namespace:
     o_parser = ArgumentParser(
         prog="pyinsider-rss",
         description="Read python insider blog inside your terminal.",
-        formatter_class=MyArgumentDefaultsHelpFormatter,
+        formatter_class=MyHelpFormatter,
     )
     add_opt = o_parser.add_argument
     ln_group = o_parser.add_mutually_exclusive_group()

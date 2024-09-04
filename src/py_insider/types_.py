@@ -1,7 +1,13 @@
 from __future__ import annotations
 
 import typing
-from argparse import OPTIONAL, SUPPRESS, ZERO_OR_MORE, ArgumentDefaultsHelpFormatter
+from argparse import (
+    OPTIONAL,
+    SUPPRESS,
+    ZERO_OR_MORE,
+    ArgumentDefaultsHelpFormatter,
+    RawDescriptionHelpFormatter,
+)
 from gettext import gettext as _
 from typing import Any
 
@@ -11,7 +17,7 @@ if typing.TYPE_CHECKING:
 Entry: TypeAlias = dict[str, Any]
 
 
-class MyArgumentDefaultsHelpFormatter(ArgumentDefaultsHelpFormatter):
+class MyHelpFormatter(ArgumentDefaultsHelpFormatter, RawDescriptionHelpFormatter):
     """ArgumentParser formatter class for showing custom
     help messages for argument defaults.
     """
