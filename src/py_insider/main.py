@@ -2,10 +2,11 @@ from __future__ import annotations
 
 import sys
 import typing
-from argparse import ArgumentParser, SUPPRESS, ArgumentDefaultsHelpFormatter
+from argparse import SUPPRESS, ArgumentParser
 
 import feedparser
 
+from .types_ import MyArgumentDefaultsHelpFormatter
 from .utils import print_entries_table, print_entry
 
 if typing.TYPE_CHECKING:
@@ -31,7 +32,7 @@ def parse_opts() -> Namespace:
     o_parser = ArgumentParser(
         prog="pyinsider-rss",
         description="Read python insider blog inside your terminal.",
-        formatter_class=ArgumentDefaultsHelpFormatter,
+        formatter_class=MyArgumentDefaultsHelpFormatter,
     )
     add_opt = o_parser.add_argument
     ln_group = o_parser.add_mutually_exclusive_group()
@@ -50,7 +51,7 @@ def parse_opts() -> Namespace:
         dest="latest",
         action="store_true",
         default=False,
-        help='Show the latest rss feed. Suppresses -n option.',
+        help="Show the latest rss feed. Suppresses -n option.",
     )
     add_opt(
         "-p",
@@ -88,9 +89,11 @@ def main() -> None:
             entry_number = entry_keys[-1]
         else:
             if options.number not in entry_keys:
-                print("Please enter valid entry number.\n"
-                      "To see all valid numbers, run "
-                      "program without arguments.")
+                print(
+                    "Please enter valid entry number.\n"
+                    "To see all valid numbers, run "
+                    "program without arguments."
+                )
                 sys.exit(1)
             entry_number = options.number
 
