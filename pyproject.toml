@@ -1,5 +1,5 @@
 [project]
-name = "py-insider-rss"
+name = "py-insider"
 description = "Read python insider blog inside your terminal."
 version = "0.0.1"
 authors = [
@@ -16,4 +16,4 @@ dependencies = [
 
 
 [project.scripts]
-py-insider-rss = "py_insider_rss.main:main"
+py-insider = "py_insider.main:main"
