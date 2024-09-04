@@ -1,6 +1,6 @@
 [project]
 name = "py-insider"
-description = "Read python insider blog inside your terminal."
+description = "Read python insider blog in your terminal."
 version = "1.0.0"
 authors = [
   {name = "Muhammad Altaaf", email = "taafuuu@gmail.com"}

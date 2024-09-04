@@ -19,11 +19,13 @@ Entry: TypeAlias = dict[str, Any]
 
 class MyHelpFormatter(ArgumentDefaultsHelpFormatter, RawDescriptionHelpFormatter):
     """ArgumentParser formatter class for showing custom
-    help messages for argument defaults.
+    help messages for argument defaults and retaining formation
+    of description.
     """
 
     def _get_help_string(self, action):
         help = action.help
+
         if help is None:
             help = ""
 

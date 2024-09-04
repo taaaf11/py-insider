@@ -16,6 +16,24 @@ if typing.TYPE_CHECKING:
 
 URL = "https://blog.python.org/feeds/posts/default?alt=rss"
 
+PROG = "py-insider"
+PROG_DESC = """\
+██████╗ ██╗   ██╗     ██╗███╗   ██╗███████╗██╗██████╗ ███████╗██████╗
+██╔══██╗╚██╗ ██╔╝     ██║████╗  ██║██╔════╝██║██╔══██╗██╔════╝██╔══██╗
+██████╔╝ ╚████╔╝█████╗██║██╔██╗ ██║███████╗██║██║  ██║█████╗  ██████╔╝
+██╔═══╝   ╚██╔╝ ╚════╝██║██║╚██╗██║╚════██║██║██║  ██║██╔══╝  ██╔══██╗
+██║        ██║        ██║██║ ╚████║███████║██║██████╔╝███████╗██║  ██║
+╚═╝        ╚═╝        ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝╚═════╝ ╚══════╝╚═╝  ╚═╝
+
+Read python insiders blog in your terminal.\
+"""
+PROG_AUTHOR = "Muhammad Altaaf <taafuuu@gmail.com>"
+PROG_VER = "1.0.0"
+PROG_EPILOG = f"""\
+Version: {PROG_VER}
+Written by: {PROG_AUTHOR}
+"""
+
 
 def load_entries() -> list[Entry]:
     """Get entries from blog."""
@@ -30,8 +48,9 @@ def parse_opts() -> Namespace:
     """Parse command line options and return Namespace object."""
 
     o_parser = ArgumentParser(
-        prog="pyinsider-rss",
-        description="Read python insider blog inside your terminal.",
+        prog=PROG,
+        description=PROG_DESC,
+        epilog=PROG_EPILOG,
         formatter_class=MyHelpFormatter,
     )
     add_opt = o_parser.add_argument
