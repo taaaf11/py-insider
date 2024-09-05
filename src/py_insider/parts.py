@@ -12,12 +12,22 @@ if typing.TYPE_CHECKING:
     from .types import Entry
 
 
-def fmt_datetime(iso_datetime: str) -> str:
+def fmt_datetime(iso_datetime: str, civil: bool, human: bool) -> str:
     """Format date and time from entry data
     into local time.
     """
 
-    format_ = "%Y-%m-%d %H:%M:%S"
+    if civil:
+        if human:
+            format_ = "%a %d-%b-%Y %I:%M:%S %p"
+        else:
+            format_ = "%Y-%m-%d %I:%M:%S %p"
+    else:
+        if human:
+            format_ = "%a %d-%b-%Y %H:%M:%S"
+        else:
+            format_ = "%Y-%m-%d %H:%M:%S"
+
     dt = datetime.fromisoformat(iso_datetime)
     dt_local = dt.astimezone()
     return dt_local.strftime(format_)
@@ -46,7 +56,7 @@ def make_authors(entry: Entry) -> Text:
     return authors_text
 
 
-def make_last_updated(entry: Entry) -> Text:
+def make_last_updated(entry: Entry, date_civil: bool, date_human: bool) -> Text:
     """Make last update info renderable from entry data."""
 
     date_info = Text.assemble(
@@ -57,7 +67,7 @@ def make_last_updated(entry: Entry) -> Text:
     return date_info
 
 
-def make_entries_table(entries: list[Entry]) -> Table:
+def make_entries_table(entries: list[Entry], date_civil: bool, date_human: bool) -> Table:
     """Make a table with two columns: serial number
     and title of entry."""
 
@@ -69,20 +79,20 @@ def make_entries_table(entries: list[Entry]) -> Table:
 
     for count, entry in enumerate(entries, start=1):
         title = Text(entry["title"])
-        date_ = fmt_datetime(entry["date"])
+        date_ = fmt_datetime(entry["date"], date_civil, date_human)
         table.add_row(str(count), date_, title)
 
     return table
 
 
-def make_info(entry: Entry) -> Text:
+def make_info(entry: Entry, date_civil: bool, date_human: bool) -> Text:
     """Wrapper around different info making
     functions.
     """
 
     title = make_title(entry)
     authors = make_authors(entry)
-    last_updated = make_last_updated(entry)
+    last_updated = make_last_updated(entry, date_civil, date_human)
     newline = Text("\n")
 
     infos = [

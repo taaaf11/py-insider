@@ -72,6 +72,20 @@ def parse_opts() -> Namespace:
         help="Show the latest rss feed. Suppresses -n option.",
     )
     add_opt(
+        "-c",
+        dest="civil",
+        action="store_true",
+        default=False,
+        help="Show time in civil format (with am/pm).",
+    )
+    add_opt(
+        "-u",
+        dest="human",
+        action="store_true",
+        default=False,
+        help="Show time in human format.",
+    )
+    add_opt(
         "-p",
         dest="paginate",
         action="store_true",
@@ -98,7 +112,7 @@ def main() -> None:
     read_req = options.latest or options.number
 
     if not read_req:
-        print_entries_table(entries, options.paginate, options.styles)
+        print_entries_table(entries, options.paginate, options.styles, options.civil, options.human)
         sys.exit(0)
 
     else:
@@ -106,21 +120,19 @@ def main() -> None:
         entry_keys = sorted(c_entry_map.keys())
         entry_number: int
 
-        if options.latest:
-            entry_number = entry_keys[0]
-        else:
-            entry_number = options.number
-            if entry_number not in entry_keys:
-                print(
-                    "Please enter valid entry number.\n"
-                    "To see all valid numbers, run "
-                    "program without arguments.",
-                    file=sys.stderr,
-                )
-                sys.exit(1)
+        entry_number = entry_keys[0] if options.latest else options.number
+
+        if entry_number not in entry_keys:
+            print(
+                "Please enter valid entry number.\n"
+                "To see all valid numbers, run "
+                "program without arguments.",
+                file=sys.stderr,
+            )
+            sys.exit(1)
 
         entry = c_entry_map.get(entry_number)
-        print_entry(entry, options.paginate, options.styles)
+        print_entry(entry, options.paginate, options.styles, options.civil,  options.civil)
 
 
 if __name__ == "__main__":

@@ -10,12 +10,12 @@ if typing.TYPE_CHECKING:
     from .types_ import Entry
 
 
-def print_entry(entry: Entry, paging: bool, styles: bool) -> None:
+def print_entry(entry: Entry, paging: bool, styles: bool, date_civil: bool, date_human: bool) -> None:
     """Utility function for printing blog entry on
     screen.
     """
 
-    info_text = make_info(entry)
+    info_text = make_info(entry, date_civil, date_human)
     summary_md = make_summary(entry)
     elems = [info_text, summary_md]
 
@@ -32,11 +32,13 @@ def print_entries_table(
     entries: list[Entry],
     paging: bool,
     styles: bool,
+    date_civil: bool,
+    date_human: bool,
 ) -> None:
     """Utility function for printing a table with blog entries and
     their last updated date."""
 
-    entries_table = make_entries_table(entries)
+    entries_table = make_entries_table(entries, date_civil, date_human)
 
     console = Console()
 
