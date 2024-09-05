@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import sys
 import typing
-from argparse import SUPPRESS, ArgumentParser
+from argparse import ArgumentParser
 
 import feedparser
 
@@ -40,7 +40,6 @@ def load_entries() -> list[Entry]:
 
     feed = feedparser.parse(URL)
     entries = feed["entries"]
-    entries = list(reversed(entries))
     return entries
 
 
@@ -60,7 +59,7 @@ def parse_opts() -> Namespace:
         "-n",
         dest="number",
         metavar="NUMBER",
-        default=SUPPRESS,
+        default=None,
         type=int,
         help="Show an rss feed with number NUMBER. To see all numbers,"
         " run program without arguments.",
@@ -95,28 +94,32 @@ def main() -> None:
     options = parse_opts()
     entries = load_entries()
 
-    if len(sys.argv) == 1:
+    # user wants to read
+    read_req = options.latest or options.number
+
+    if not read_req:
         print_entries_table(entries, options.paginate, options.styles)
         sys.exit(0)
 
-    if options.number ^ options.latest:
+    else:
         c_entry_map = dict(enumerate(entries, start=1))
         entry_keys = sorted(c_entry_map.keys())
         entry_number: int
 
         if options.latest:
-            entry_number = entry_keys[-1]
+            entry_number = entry_keys[0]
         else:
-            if options.number not in entry_keys:
+            entry_number = options.number
+            if entry_number not in entry_keys:
                 print(
                     "Please enter valid entry number.\n"
                     "To see all valid numbers, run "
-                    "program without arguments."
+                    "program without arguments.",
+                    file=sys.stderr,
                 )
                 sys.exit(1)
-            entry_number = options.number
 
-        entry = c_entry_map.get(options.number)
+        entry = c_entry_map.get(entry_number)
         print_entry(entry, options.paginate, options.styles)
 
 
